@@ -1,14 +1,29 @@
-import static io.restassured.RestAssured.*;
-
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
 
 public class APITests {
 
+    @BeforeAll
+    public static void setup() {
+        RestAssured.baseURI = "https://reqres.in/api";
+    }
+
+    // GET all resources
     @Test
-    void getResourceList(){
-        Response response = given().get("https://reqres.in/api/resource");
-        Assert.assertEquals(response.getStatusCode(),200);
+    public void getAllResources() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/resource")
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
     }
 }
