@@ -39,4 +39,19 @@ public class APITests {
 
         Assertions.assertEquals(200, response.statusCode());
     }
+
+    // GET resource by page number
+    @Test
+    public void getResourceById() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .queryParam("page",1)
+                .when()
+                .get("/resource")
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
+    }
+
 }
