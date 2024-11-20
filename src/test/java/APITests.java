@@ -26,4 +26,17 @@ public class APITests {
 
         Assertions.assertEquals(200, response.statusCode());
     }
+
+    // GET all users
+    @Test
+    public void getAllUsers() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/users")
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
+    }
 }
