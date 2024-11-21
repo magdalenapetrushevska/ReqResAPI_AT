@@ -180,8 +180,30 @@ public class APITests {
                 .body("updatedAt", notNullValue());
     }
 
+    //PATCH resource
+    @Test
+    public void patchResource() {
+        given()
+                .contentType(ContentType.JSON)
+                .queryParam("id",1)
+                .when()
+                .patch("/resource/")
+                .then()
+                .statusCode(200)
+                .body("updatedAt", notNullValue());
+    }
 
-
+    //PATCH user
+    @Test
+    public void patchUser() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .patch("/users/")
+                .then()
+                .statusCode(200)
+                .body("updatedAt", notNullValue());
+    }
 
 
 }
