@@ -4,3 +4,6 @@ This project contains automated tests for this [API](https://reqres.in/api-docs)
 The tests can be executed natively via the IDE or using a correctly configured mvn.
 </br>
 `mvn test`
+</br>
+### Techology
+Java, Maven, RestAssured, TestNG, BDD
