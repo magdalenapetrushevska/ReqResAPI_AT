@@ -40,18 +40,54 @@ public class APITests {
         Assertions.assertEquals(200, response.statusCode());
     }
 
-    // GET resource by page number
+    // GET resources by page number
     @Test
-    public void getResourceById() {
+    public void getResourcesByPageNumber() {
         Response response = given()
                 .contentType(ContentType.JSON)
                 .queryParam("page",1)
                 .when()
                 .get("/resource")
+
                 .then()
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
     }
+
+    // GET resources by page number
+    @Test
+    public void getResourceById() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .queryParam("id",1)
+                .when()
+                .get("/resource")
+
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
+    }
+
+    // GET user by id
+    @Test
+    public void getUserById() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .queryParam("id",1)
+                .when()
+                .get("/users")
+
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
+    }
+
+
+
+
+
 
 }
