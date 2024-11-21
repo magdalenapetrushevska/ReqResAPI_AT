@@ -108,6 +108,19 @@ public class APITests {
                 .body("token", notNullValue());
     }
 
+    //POST register method
+    @Test
+    public void register() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"eve.holt@reqres.in\", \"email\": \"eve.holt@reqres.in\",\"password\": \"test123\"}")
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(200)
+                //.body("id", notNullValue())
+                .body("token", notNullValue());
+    }
 
 
 
