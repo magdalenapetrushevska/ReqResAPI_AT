@@ -118,8 +118,66 @@ public class APITests {
                 .post("/register")
                 .then()
                 .statusCode(200)
-                //.body("id", notNullValue())
+                .body("id", notNullValue())
                 .body("token", notNullValue());
+    }
+
+    //POST logout method
+    @Test
+    public void logout() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .post("/logout")
+                .then()
+                .statusCode(200);
+    }
+
+    //DELETE user
+    @Test
+    public void deleteUser() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("/users")
+                .then()
+                .statusCode(204);
+    }
+
+    //DELETE resource
+    @Test
+    public void deleteResource() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("/resource")
+                .then()
+                .statusCode(204);
+    }
+
+    //PUT user
+    @Test
+    public void updateUser() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .put("/users/")
+                .then()
+                .statusCode(200)
+                .body("updatedAt", notNullValue());
+    }
+
+    //PUT resource
+    @Test
+    public void updateResource() {
+        given()
+                .contentType(ContentType.JSON)
+                .queryParam("id",1)
+                .when()
+                .put("/resource/")
+                .then()
+                .statusCode(200)
+                .body("updatedAt", notNullValue());
     }
 
 
