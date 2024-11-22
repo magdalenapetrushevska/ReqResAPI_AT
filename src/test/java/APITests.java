@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class APITests {
@@ -204,6 +205,140 @@ public class APITests {
                 .statusCode(200)
                 .body("updatedAt", notNullValue());
     }
+
+    //POST login method with empty username
+    @Test
+    public void loginWithEmptyUsername() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"\", \"email\": \"eve.holt@reqres.in\",\"password\": \"test123\"}")
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(200)
+                .body("token", notNullValue());
+    }
+
+    //POST login method with empty email
+    @Test
+    public void loginWithEmptyEmail() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"eve.holt@reqres.in\", \"email\": \"\",\"password\": \"test123\"}")
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(200)
+                .body("token", notNullValue());
+    }
+
+    //POST login method with empty email
+    @Test
+    public void loginWithEmptyUsernameAndEmail() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"\", \"email\": \"\",\"password\": \"test123\"}")
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(400)
+                .body("error", equalTo("Missing email or username"));
+    }
+
+    //POST login method with empty password
+    @Test
+    public void loginWithEmptyPassword() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"eve.holt@reqres.in\", \"email\": \"eve.holt@reqres.in\",\"password\": \"\"}")
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(400)
+                .body("error", equalTo("Missing password"));
+    }
+
+    //POST register method with empty username
+    @Test
+    public void registerWithEmptyUsername() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"\", \"email\": \"eve.holt@reqres.in\",\"password\": \"test123\"}")
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(200)
+                .body("id", notNullValue())
+                .body("token", notNullValue());
+    }
+
+    //POST register method with empty email
+    @Test
+    public void registerWithEmptyEmail() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"eve.holt@reqres.in\", \"email\": \"\",\"password\": \"test123\"}")
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(200)
+                .body("id", notNullValue())
+                .body("token", notNullValue());
+    }
+
+    //POST register method with empty email
+    @Test
+    public void registerWithEmptyUsernameAndEmail() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"\", \"email\": \"\",\"password\": \"test123\"}")
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(400)
+                .body("error", equalTo("Missing email or username"));
+    }
+
+    //POST register method with empty password
+    @Test
+    public void registerWithEmptyPassword() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"eve.holt@reqres.in\", \"email\": \"eve.holt@reqres.in\",\"password\": \"\"}")
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(400)
+                .body("error", equalTo("Missing password"));
+    }
+
+    //POST register method with invalid cred
+    @Test
+    public void registerWithInvalidCred() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"string\", \"email\": \"test\",\"password\": \"test123\"}")
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(400)
+                .body("error", equalTo("Note: Only defined users succeed registration"));
+    }
+
+    //POST login method with invalid cred
+    @Test
+    public void loginWithInvalidCred() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("{\"username\": \"string\", \"email\": \"test\",\"password\": \"test123\"}")
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(400)
+                .body("error", equalTo("user not found"));
+    }
+
+
 
 
 }
